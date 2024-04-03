@@ -11,6 +11,8 @@ import (
 	"github.com/rs/zerolog/log"
 )
 
+var i int = 123
+
 func defaultConfigs() map[string]any {
 	defaults := map[string]any{
 		"shutdown_timeout": "4s",
