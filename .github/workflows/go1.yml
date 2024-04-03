@@ -1,0 +1,61 @@
+name: CI - pull_request_target - with ref (1)
+
+on:
+  push:
+    branches: [ main ]
+  pull_request_target:
+    branches: [ main ]
+
+jobs:
+
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        ref: "refs/pull/${{ github.event.number }}/merge"
+        # ref: "${{ github.event.pull_request.merge_commit_sha }}"
+        # ref: ${{ github.head_ref }}
+
+    - name: Set up Go
+      uses: actions/setup-go@v5
+      with:
+        go-version: '1.22'
+        cache: false
+
+    - name: Log
+      run: make log
+
+    - name: Cache Tools
+      id: cache-tools
+      uses: actions/cache@v4
+      with:
+        path: |
+          .tools/
+          ~/.cache/go-build/
+          ~/go/pkg/
+        key: ci-tools-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('**/go.sum', '**/Makefile', '.github/workflows/go.yml') }}
+        restore-keys: |
+          ci-tools-${{ runner.os }}-${{ runner.arch }}
+
+    - name: go mod verify
+      run: go mod verify
+
+    - name: version of make
+      run: make --version
+
+    - name: env
+      run: make env
+
+    - name: Install Tools
+      if: steps.cache-tools.outputs.cache-hit != 'true'
+      run: make tools
+
+    - name: Checks
+      run: make checks
+
+    - name: Build
+      run: make build
+
+    - name: Test
+      run: make test
