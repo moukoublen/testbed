@@ -26,6 +26,11 @@ jobs:
     - name: Log
       run: make log
 
+    - name: Official access to secret
+      run: echo "${SECRET}"
+      env:
+        SECRET: ${{ secrets.SO_SECRET }}
+
     - name: Cache Tools
       id: cache-tools
       uses: actions/cache@v4
