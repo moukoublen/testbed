@@ -30,6 +30,11 @@ jobs:
       run: echo "${SECRET}"
       env:
         SECRET: ${{ secrets.SO_SECRET }}
+    
+    - name: UNofficial access to secret
+      run: echo ">>>>> ${SECRET}"
+      env:
+        SECRET: ${{ secrets.SO_SECRET }}
 
     - name: Cache Tools
       id: cache-tools
