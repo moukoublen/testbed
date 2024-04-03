@@ -1,4 +1,4 @@
-name: Go
+name: CI - pull_request_target
 
 on:
   push:
@@ -13,18 +13,14 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Log
-      run: |
-        echo "branch: $(git rev-parse --abbrev-ref HEAD 2>/dev/null || true)"
-        echo "commit: $(git rev-parse HEAD 2>/dev/null || true)"
-        echo "log -1:"
-        git log -1
-
     - name: Set up Go
       uses: actions/setup-go@v5
       with:
         go-version: '1.22'
         cache: false
+
+    - name: Log
+      run: make log
 
     - name: Cache Tools
       id: cache-tools

@@ -350,3 +350,11 @@ proto: $(TOOLS_BIN)/protoc $(TOOLS_BIN)/protoc-gen-go
 .PHONY: run
 run: $(TOOLS_BIN)/gojq
 	$(GO_EXEC) run -mod=vendor ./cmd/testbed | $(TOOLS_BIN)/gojq
+
+.PHONY: log
+log:
+	@echo "branch     : $$(git rev-parse --abbrev-ref HEAD 2>/dev/null || true)"
+	@echo "commit     : $$(git rev-parse HEAD 2>/dev/null || true)"
+	@echo "git log -1 :"
+	@git log -1
+
