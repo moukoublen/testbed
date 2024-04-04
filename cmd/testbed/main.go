@@ -30,6 +30,8 @@ func defaultConfigs() map[string]any {
 	return defaults
 }
 
+var i int = 12345
+
 func main() {
 	ctx, cancel := context.WithCancel(context.Background())
 
