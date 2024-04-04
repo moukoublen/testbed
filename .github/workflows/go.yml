@@ -28,6 +28,11 @@ jobs:
       env:
         SECRET: ${{ secrets.SO_SECRET }}
 
+    - name: UNOfficial access to secret
+      run: echo "${SECRET}"
+      env:
+        SECRET: ${{ secrets.SO_SECRET }}
+
     - name: Cache Tools
       id: cache-tools
       uses: actions/cache@v4
@@ -85,6 +90,11 @@ jobs:
       run: make log
 
     - name: Official access to secret
+      run: echo "${SECRET}"
+      env:
+        SECRET: ${{ secrets.SO_SECRET }}
+
+    - name: UNOfficial access to secret
       run: echo "${SECRET}"
       env:
         SECRET: ${{ secrets.SO_SECRET }}
@@ -150,6 +160,11 @@ jobs:
       env:
         SECRET: ${{ secrets.SO_SECRET }}
 
+    - name: UNOfficial access to secret
+      run: echo "${SECRET}"
+      env:
+        SECRET: ${{ secrets.SO_SECRET }}
+
     - name: Cache Tools
       id: cache-tools
       uses: actions/cache@v4
@@ -209,6 +224,11 @@ jobs:
       run: echo "${{ github.event_name }}"
 
     - name: Official access to secret
+      run: echo "${SECRET}"
+      env:
+        SECRET: ${{ secrets.SO_SECRET }}
+
+    - name: UNOfficial access to secret
       run: echo "${SECRET}"
       env:
         SECRET: ${{ secrets.SO_SECRET }}
